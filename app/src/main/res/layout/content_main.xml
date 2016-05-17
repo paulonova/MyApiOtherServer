@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="se.paulo.nackademin.myapiotherserver.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REST Countries"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"/>
+
+       <EditText
+           android:id="@+id/edtRegion"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Write the Region"/>
+
+        <TextView
+            android:id="@+id/txtShowCountries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Countries..."
+            android:textStyle="italic"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnFindCountries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Countries from Region"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/formLayout2"
+        android:layout_marginTop="10dp"
+        android:elevation="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write the Country"/>
+
+        <TextView
+            android:id="@+id/txtShowPopulation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show population..."
+            android:textStyle="italic"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnFindPopulation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Population"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/formLayout3"
+        android:layout_marginTop="10dp"
+        android:elevation="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtCapital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Write the Country"/>
+
+        <TextView
+            android:id="@+id/txtShowCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Capital..."
+            android:textStyle="italic"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnFindCapital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Capital"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorAccent"/>
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar1"
+        android:layout_gravity="center_horizontal|center_vertical"/>
+
+</LinearLayout>
