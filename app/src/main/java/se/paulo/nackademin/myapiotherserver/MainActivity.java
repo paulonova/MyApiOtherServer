@@ -7,10 +7,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -22,10 +24,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView showCountries, showPopulation, showCapital;
+    TextView showResults;
     Button findRegion, findPopulation, findCapital;
-    EditText wRegion, wCountry, wCapital;
+    EditText wRegion;
     ProgressBar pb;
+
+    private String regionName;
+    private String countryToCapital;
+    private String countryToPopulation;
+
 
     List<MyTask> tasks;
     List<Country> countryList;
@@ -37,16 +44,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //hiding the soft-keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         tasks = new ArrayList<>();
 
         //ProgressBar
         pb = (ProgressBar) findViewById(R.id.progressBar1);
-        pb.setVisibility(View.INVISIBLE);
+        //pb.setVisibility(View.GONE);
 
         //TextView
-        showCountries = (TextView)findViewById(R.id.txtShowCountries);
-        showPopulation = (TextView)findViewById(R.id.txtShowPopulation);
-        showCapital = (TextView)findViewById(R.id.txtShowCountry);
+        showResults = (TextView)findViewById(R.id.txtShowResults);
+        //showResults.setMovementMethod(new ScrollingMovementMethod());
+
 
         //Buttons
         findRegion = (Button)findViewById(R.id.btnFindCountries);
@@ -58,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //EditText
         wRegion = (EditText)findViewById(R.id.edtRegion);
-        wCountry = (EditText)findViewById(R.id.edtCountry);
-        wCapital = (EditText)findViewById(R.id.edtCapital);
+
 
     }
 
@@ -78,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_clear) {
+            showResults.setText(R.string.show_results);
             return true;
         }
 
@@ -104,16 +114,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //task.execute(uri);
     }
 
-    protected void updateDisplay(){
-//        output.append(message + "\n");
+    protected void updateDisplay(String message){
 
-
-        if(countryList != null){
-
-            //Getting just one random object
-            Country country = countryList.get(0);
-            showCountries.setText(country.getCountryName());
+        if(message == null){
+            showResults.setText("there is no result for such name!");
+        }else {
+            showResults.append(message + "\n");
         }
+
+//        if(countryList != null){
+//
+//            //Getting just one random object
+//            Country country = countryList.get(0);
+//            //showResults.setText(country.getCountryName());
+//            showResults.setText("TESTING...");
+//        }
 
     }
 
@@ -122,25 +137,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.btnFindCountries:
-
+                //Getting text from EditText..
+                regionName = wRegion.getText().toString();
+                showResults.setText("");
                 if(isOnLine()){
-                    requestData("https://restcountries.eu/rest/v1/region/africa");
+
+                    if(!regionName.isEmpty()){
+                        requestData("https://restcountries.eu/rest/v1/region/" + regionName.toLowerCase());
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     Toast.makeText(getApplicationContext(), "Network isn´t available!", Toast.LENGTH_LONG).show();
                 }
                 break;
 
             case R.id.btnFindPopulation:
+                //Getting text from EditText..
+                countryToPopulation = wRegion.getText().toString();
+                showResults.setText("");
                 if(isOnLine()){
-                    requestData("https://restcountries.eu/rest/v1/alpha/col");
+                    if(!countryToPopulation.isEmpty()){
+                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToPopulation);
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     Toast.makeText(getApplicationContext(), "Network isn´t available!", Toast.LENGTH_LONG).show();
                 }
                 break;
 
             case R.id.btnFindCapital:
+                //Getting text from EditText..
+                countryToCapital = wRegion.getText().toString();
+                showResults.setText("");
                 if(isOnLine()){
-                    requestData("https://restcountries.eu/rest/v1/alpha/col");
+                    if(!countryToCapital.isEmpty()){
+                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToCapital);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     Toast.makeText(getApplicationContext(), "Network isn´t available!", Toast.LENGTH_LONG).show();
                 }
@@ -156,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Execute before doInBackground()
         @Override
         protected void onPreExecute() {
+            updateDisplay("Starting task... \n");
 
             if(tasks.size() == 0){
                 pb.setVisibility(View.VISIBLE);
@@ -174,18 +214,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String result) {
             //bookList = JSONParse.parseFeed(result);
-            updateDisplay();
+            updateDisplay(result);
 
             tasks.remove(this);
             if(tasks.size() == 0){
-                pb.setVisibility(View.INVISIBLE);
+                pb.setVisibility(View.GONE);
             }
 
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-//            updateDisplay(values[0]);
+            updateDisplay(values[0]);
         }
     }
 }

@@ -5,24 +5,32 @@ package se.paulo.nackademin.myapiotherserver;
  */
 public class Country {
 
-    private String countryName;
-    private double population;
+    private String country;
+    private String capital;
+    private int population;
 
 
-
-    public String getCountryName() {
-        return countryName;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public double getPopulation() {
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+    public int getPopulation() {
         return population;
     }
 
-    public void setPopulation(double population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 }
