@@ -4,5 +4,10 @@
     <string name="clear">Clear</string>
     <string name="title_activity_show_results">ShowResultsActivity</string>
     <string name="show_results">Show Results..</string>
+    <string name="rest_country">REST Countries</string>
+    <string name="insert_field">Insert region or country</string>
+    <string name="countries_region">Find Countries from Region</string>
+    <string name="find_population">Find Population</string>
+    <string name="find_capital">Find Capital</string>
 
 </resources>

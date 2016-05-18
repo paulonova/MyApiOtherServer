@@ -7,7 +7,7 @@ public class Country {
 
     private String country;
     private String capital;
-    private int population;
+    private long population;
 
 
     public String getCountry() {
@@ -26,11 +26,11 @@ public class Country {
         this.capital = capital;
     }
 
-    public int getPopulation() {
+    public long getPopulation() {
         return population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(long population) {
         this.population = population;
     }
 }

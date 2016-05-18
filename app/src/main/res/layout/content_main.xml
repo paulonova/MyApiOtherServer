@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REST Countries"
+            android:text="@string/rest_country"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"/>
@@ -26,13 +26,13 @@
             android:id="@+id/edtRegion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="insert region or country"/>
+            android:hint="@string/insert_field"/>
 
         <Button
             android:id="@+id/btnFindCountries"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Find Countries from Region"/>
+            android:text="@string/countries_region"/>
 
         <View
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:id="@+id/btnFindPopulation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Find Population"/>
+            android:text="@string/find_population"/>
 
         <View
             android:layout_width="match_parent"
@@ -56,7 +56,7 @@
             android:id="@+id/btnFindCapital"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Find Capital"/>
+            android:text="@string/find_capital"/>
 
         <View
             android:layout_width="match_parent"
@@ -82,10 +82,6 @@
                   android:textColor="@color/colorAccent"
                   android:textSize="18sp"/>
 
-
        </ScrollView>
-
-
-
 
     </LinearLayout>

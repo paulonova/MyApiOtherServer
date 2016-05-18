@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     List<MyTask> tasks;
     List<Country> countryList;
+    Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +115,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //task.execute(uri);
     }
 
-    protected void updateDisplay(String message){
+    //protected void updateDisplay(String message){
+    protected void updateDisplay(){
 
-        if(message == null){
-            showResults.setText("there is no result for such name!");
+        if(countryList != null){
+
+            for (int i = 0; i <countryList.size() ; i++) {
+                country = new Country();
+                country = countryList.get(i);
+                showResults.append(i + ": " + country.getCountry() + "\n");
+            }
+
         }else {
-            showResults.append(message + "\n");
+            showResults.setText("there is no result for such name!");
+
+            //showResults.append(message + "\n");
         }
 
 //        if(countryList != null){
@@ -142,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showResults.setText("");
                 if(isOnLine()){
 
-                    if(!regionName.isEmpty()){
+                    if(!regionName.isEmpty() && regionName != null){
                         requestData("https://restcountries.eu/rest/v1/region/" + regionName.toLowerCase());
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
@@ -159,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showResults.setText("");
                 if(isOnLine()){
                     if(!countryToPopulation.isEmpty()){
-                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToPopulation);
+                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToPopulation.toLowerCase());
                     }else {
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -175,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showResults.setText("");
                 if(isOnLine()){
                     if(!countryToCapital.isEmpty()){
-                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToCapital);
+                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToCapital.toLowerCase());
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -195,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Execute before doInBackground()
         @Override
         protected void onPreExecute() {
-            updateDisplay("Starting task... \n");
+            updateDisplay();
 
             if(tasks.size() == 0){
                 pb.setVisibility(View.VISIBLE);
@@ -208,13 +218,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected String doInBackground(String... params) {
 
             String content = HttpManager.getData(params[0]);
-            return content;
+            if(content != null){
+                return content;
+            }
+             return "";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            //bookList = JSONParse.parseFeed(result);
-            updateDisplay(result);
+            countryList = JSONParser.parseFeed3(result);
+            updateDisplay();
 
             tasks.remove(this);
             if(tasks.size() == 0){
@@ -225,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onProgressUpdate(String... values) {
-            updateDisplay(values[0]);
+            //updateDisplay(values[0]);
         }
     }
 }
