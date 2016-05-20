@@ -33,10 +33,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String countryToCapital;
     private String countryToPopulation;
 
+    public static final String URL_REGION = "https://restcountries.eu/rest/v1/region/";
+    public static final String URL_POPULATION = "https://restcountries.eu/rest/v1/alpha/";
+    public static final String URL_CAPITAL = "https://restcountries.eu/rest/v1/name/";
+
 
     List<MyTask> tasks;
     List<Country> countryList;
     Country country;
+
+    private int buttonPressed;
+
+    //Getter and Setter
+    public int getButtonPressed() {
+        return buttonPressed;
+    }
+
+    public void setButtonPressed(int buttonPressed) {
+        this.buttonPressed = buttonPressed;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         tasks = new ArrayList<>();
+        //setButtonPressed(0);
 
         //ProgressBar
         pb = (ProgressBar) findViewById(R.id.progressBar1);
@@ -120,26 +136,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(countryList != null){
 
+            showResults.setText("");
             for (int i = 0; i <countryList.size() ; i++) {
                 country = new Country();
                 country = countryList.get(i);
-                showResults.append(i + ": " + country.getCountry() + "\n");
+                showResults.append((i + 1) + ": " + country.getCountry()
+                                     + " - " + country.getCapital() + "\n");
             }
 
         }else {
-            showResults.setText("there is no result for such name!");
+            //Show nothing..
 
-            //showResults.append(message + "\n");
         }
+    }
 
-//        if(countryList != null){
-//
-//            //Getting just one random object
-//            Country country = countryList.get(0);
-//            //showResults.setText(country.getCountryName());
-//            showResults.setText("TESTING...");
-//        }
+    protected void updateDisplay222(){ //****************************************************************
 
+        if(countryList != null){
+
+            showResults.setText("");
+            for (int i = 0; i <countryList.size() ; i++) {
+                country = new Country();
+                country = countryList.get(i);
+                showResults.append((i + 1) + ": " + country.getCountry()
+                        + " - " + country.getCapital() + "\n");
+            }
+
+        }else {
+            //Show nothing..
+
+        }
     }
 
     @Override
@@ -150,10 +176,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Getting text from EditText..
                 regionName = wRegion.getText().toString();
                 showResults.setText("");
+                //hiding the soft-keyboard
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                //Controll the button..
+                setButtonPressed(1);
                 if(isOnLine()){
 
                     if(!regionName.isEmpty() && regionName != null){
-                        requestData("https://restcountries.eu/rest/v1/region/" + regionName.toLowerCase());
+                        requestData(URL_REGION + regionName.toLowerCase());
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -167,9 +198,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Getting text from EditText..
                 countryToPopulation = wRegion.getText().toString();
                 showResults.setText("");
+                //hiding the soft-keyboard
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                //Controll the button..
+                setButtonPressed(2);
                 if(isOnLine()){
                     if(!countryToPopulation.isEmpty()){
-                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToPopulation.toLowerCase());
+                        requestData(URL_POPULATION + countryToPopulation.toLowerCase());
                     }else {
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -183,9 +219,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Getting text from EditText..
                 countryToCapital = wRegion.getText().toString();
                 showResults.setText("");
+                //hiding the soft-keyboard
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                //Controll the button..
+                setButtonPressed(3);
                 if(isOnLine()){
                     if(!countryToCapital.isEmpty()){
-                        requestData("https://restcountries.eu/rest/v1/alpha/" + countryToCapital.toLowerCase());
+                        requestData(URL_CAPITAL + countryToCapital.toLowerCase());
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -226,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(String result) {
-            countryList = JSONParser.parseFeed3(result);
+            countryList = JSONParser.parseFeed(result);
             updateDisplay();
 
             tasks.remove(this);

@@ -16,72 +16,63 @@ public class JSONParser {
 
     public static List<Country> countryList;
 
-    public static List<Country> parseFeed(String content){  //************************************** DON´T WORK
+    public static List<Country> parseFeed(String content){
 
+        Log.e("TESTING CONTENT:","" + content);
         countryList = new ArrayList<>();
+        countryList.clear();
         Country country;
+
 
         try {
-            JSONObject jsonObject = new JSONObject(content);
-            //JSONArray jsonArray = jsonObject.getJSONArray("");
-            JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("name"));
 
-            for (int i = 0; i < jsonArray.length() ; i++) {
+            //Starting with JSONArray..
+            try {
+                JSONArray parentArray = new JSONArray(content);
+                for (int i = 0; i < parentArray.length() ; i++) {
+                    country = new Country();
+                    JSONObject jsonObject = parentArray.getJSONObject(i);
+                    country.setCountry(jsonObject.getString("name"));
+                    country.setCapital(jsonObject.getString("capital"));
 
-                JSONObject actor = jsonArray.getJSONObject(i);
-                country = new Country();
-                country.setCountry(actor.getString("name"));
-                country.setCapital(actor.getString("capital"));
-                country.setPopulation(actor.getLong("population"));
+                    countryList.add(country);
 
-                countryList.add(country);
+                }
 
+                return countryList;
+
+
+            } catch (JSONException e) {
+                Log.i("TESTING 1:","Not starting with JSONArray");
+                e.printStackTrace();
             }
 
-            return countryList;
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+            //Starting with JSONObject..
 
-    // Other solution..
-    public static List<Country> parseFeed2(String content){ // *************************************SHOW INFORMATIONS IN EXCEPTIONS...
-        countryList = new ArrayList<>();
-        Country country;
-
-        try {
-            JSONArray jsonArray = new JSONArray(content.toString());
-
-            for (int i = 0; i < jsonArray.length() ; i++) {
-
-                JSONObject actor = jsonArray.getJSONObject(i);
+            try {
                 country = new Country();
-                country.setCountry(actor.getString("name"));
-                country.setCapital(actor.getString("capital"));
-                country.setPopulation(actor.getLong("population"));
+                JSONObject parentObject = new JSONObject(content);
+                country.setCountry(parentObject.getString("name"));
+                country.setCapital(parentObject.getString("capital"));
+                country.setPopulation(parentObject.getLong("population"));
 
                 countryList.add(country);
+                return countryList;
+
+            } catch (JSONException e) {
+                Log.i("TESTING 2:","Not starting with JSONObject");
+                e.printStackTrace();
             }
 
-            return countryList;
 
-
-        } catch (JSONException e) {
+        }catch (Exception e){
+            Log.e("TESTING 3:","Not working...");
             e.printStackTrace();
-            return null;
         }
-
-    }
-
-
-    // Other solution..
-    public static List<Country> parseFeed3(String content){
-        countryList = new ArrayList<>();
-        Country country;
-
 
         return null;
     }
+
+
 }

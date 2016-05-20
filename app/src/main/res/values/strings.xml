@@ -7,7 +7,7 @@
     <string name="rest_country">REST Countries</string>
     <string name="insert_field">Insert region or country</string>
     <string name="countries_region">Find Countries from Region</string>
-    <string name="find_population">Find Population</string>
-    <string name="find_capital">Find Capital</string>
+    <string name="find_population">Find number population of a country</string>
+    <string name="find_capital">Find the capital of the country</string>
 
 </resources>
