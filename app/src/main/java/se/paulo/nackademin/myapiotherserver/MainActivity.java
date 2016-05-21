@@ -42,9 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<Country> countryList;
     Country country;
 
-    private int buttonPressed;
 
-    //Getter and Setter
+    private int buttonPressed;
     public int getButtonPressed() {
         return buttonPressed;
     }
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //protected void updateDisplay(String message){
-    protected void updateDisplay(){
+    protected void updateDisplay22(){
 
         if(countryList != null){
 
@@ -150,16 +149,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void updateDisplay222(){ //****************************************************************
+    protected void updateDisplay(){ //****************************************************************
 
         if(countryList != null){
 
-            showResults.setText("");
-            for (int i = 0; i <countryList.size() ; i++) {
-                country = new Country();
-                country = countryList.get(i);
-                showResults.append((i + 1) + ": " + country.getCountry()
-                        + " - " + country.getCapital() + "\n");
+            switch (getButtonPressed()){
+
+                case 1:
+
+                    showResults.setText("");
+                    for (int i = 0; i <countryList.size() ; i++) {
+                        country = new Country();
+                        country = countryList.get(i);
+                        showResults.append((i + 1) + ": " + country.getCountry() + "\n");
+                    }
+
+                    break;
+
+                case 2:
+
+                    showResults.setText("");
+                    for (int i = 0; i <countryList.size() ; i++) {
+                        country = new Country();
+                        country = countryList.get(i);
+                        showResults.append("Population: " + country.getPopulation() + "\n");
+                    }
+
+                    break;
+
+                case 3:
+
+                    showResults.setText("");
+                    for (int i = 0; i <countryList.size() ; i++) {
+                        country = new Country();
+                        country = countryList.get(i);
+                        showResults.append("Capital: " + country.getCapital() + "\n");
+                    }
+
+                    break;
+
             }
 
         }else {
@@ -173,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.btnFindCountries:
+                setButtonPressed(1);
                 //Getting text from EditText..
                 regionName = wRegion.getText().toString();
                 showResults.setText("");
@@ -195,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnFindPopulation:
+                setButtonPressed(2);
                 //Getting text from EditText..
                 countryToPopulation = wRegion.getText().toString();
                 showResults.setText("");
@@ -216,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnFindCapital:
+                setButtonPressed(3);
                 //Getting text from EditText..
                 countryToCapital = wRegion.getText().toString();
                 showResults.setText("");
@@ -237,6 +268,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+
+        Log.e("TESTING BUTTON", "" + getButtonPressed());
     }
 
 
