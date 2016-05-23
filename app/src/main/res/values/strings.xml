@@ -9,5 +9,8 @@
     <string name="countries_region">Find Countries from Region</string>
     <string name="find_population">Find number population of a country</string>
     <string name="find_capital">Find the capital of the country</string>
+    <string name="three_letters">Type only the 3 first letters of the country.</string>
+    <string name="complete_word">Type the complete word</string>
+    <string name="region">Type region like: Africa, Asia, Europe, Americas and Oceania</string>
 
 </resources>

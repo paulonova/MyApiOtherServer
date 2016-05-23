@@ -29,6 +29,20 @@
             android:layout_height="wrap_content"
             android:hint="@string/insert_field"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/region"/>
+
         <Button
             android:id="@+id/btnFindCountries"
             android:layout_width="match_parent"
@@ -41,6 +55,14 @@
             android:layout_marginTop="5dp"
             android:background="@color/colorAccent"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="italic"
+        android:text="@string/three_letters"/>
+
         <Button
             android:id="@+id/btnFindPopulation"
             android:layout_width="match_parent"
@@ -52,6 +74,14 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="italic"
+        android:text="@string/complete_word"/>
 
         <Button
             android:id="@+id/btnFindCapital"

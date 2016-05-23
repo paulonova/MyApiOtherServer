@@ -29,12 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText wRegion;
     ProgressBar pb;
 
-    private String regionName;
-    private String countryToCapital;
-    private String countryToPopulation;
+    private String resultText;
 
     public static final String URL_REGION = "https://restcountries.eu/rest/v1/region/";
-    public static final String URL_POPULATION = "https://restcountries.eu/rest/v1/alpha/";
+    public static final String URL_POPULATION = "https://restcountries.eu/rest/v1/alpha/";  // OK   https://restcountries.eu/rest/v1/alpha/
     public static final String URL_CAPITAL = "https://restcountries.eu/rest/v1/name/";
 
 
@@ -63,11 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         tasks = new ArrayList<>();
-        //setButtonPressed(0);
 
         //ProgressBar
         pb = (ProgressBar) findViewById(R.id.progressBar1);
-        //pb.setVisibility(View.GONE);
 
         //TextView
         showResults = (TextView)findViewById(R.id.txtShowResults);
@@ -130,26 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //task.execute(uri);
     }
 
-    //protected void updateDisplay(String message){
-    protected void updateDisplay22(){
 
-        if(countryList != null){
-
-            showResults.setText("");
-            for (int i = 0; i <countryList.size() ; i++) {
-                country = new Country();
-                country = countryList.get(i);
-                showResults.append((i + 1) + ": " + country.getCountry()
-                                     + " - " + country.getCapital() + "\n");
-            }
-
-        }else {
-            //Show nothing..
-
-        }
-    }
-
-    protected void updateDisplay(){ //****************************************************************
+    protected void updateDisplay(){
 
         if(countryList != null){
 
@@ -172,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for (int i = 0; i <countryList.size() ; i++) {
                         country = new Country();
                         country = countryList.get(i);
-                        showResults.append("Population: " + country.getPopulation() + "\n");
+                        showResults.append("Population of " + country.getCountry() + " is: " + country.getPopulation() + "\n");
                     }
 
                     break;
@@ -183,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for (int i = 0; i <countryList.size() ; i++) {
                         country = new Country();
                         country = countryList.get(i);
-                        showResults.append("Capital: " + country.getCapital() + "\n");
+                        showResults.append("Capital of " + country.getCountry() + " is: " + country.getCapital() + "\n");
                     }
 
                     break;
@@ -192,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else {
             //Show nothing..
+            //Toast.makeText(MainActivity.this, "Please! write the appropriate text to make your research", Toast.LENGTH_SHORT).show();
+            showResults.setText("Please! write the appropriate text to make your research");
 
         }
     }
@@ -199,21 +179,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        resultText = wRegion.getText().toString();
+
         switch (v.getId()){
             case R.id.btnFindCountries:
                 setButtonPressed(1);
-                //Getting text from EditText..
-                regionName = wRegion.getText().toString();
                 showResults.setText("");
-                //hiding the soft-keyboard
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                 //Controll the button..
                 setButtonPressed(1);
                 if(isOnLine()){
 
-                    if(!regionName.isEmpty() && regionName != null){
-                        requestData(URL_REGION + regionName.toLowerCase());
+                    if(!resultText.isEmpty() && resultText != null){
+                        requestData(URL_REGION + resultText.toLowerCase());
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -225,17 +203,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnFindPopulation:
                 setButtonPressed(2);
-                //Getting text from EditText..
-                countryToPopulation = wRegion.getText().toString();
                 showResults.setText("");
-                //hiding the soft-keyboard
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                 //Controll the button..
                 setButtonPressed(2);
                 if(isOnLine()){
-                    if(!countryToPopulation.isEmpty()){
-                        requestData(URL_POPULATION + countryToPopulation.toLowerCase());
+                    if(!resultText.isEmpty() && resultText != null){
+                        requestData(URL_POPULATION + resultText.toLowerCase());
                     }else {
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
@@ -247,17 +221,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnFindCapital:
                 setButtonPressed(3);
-                //Getting text from EditText..
-                countryToCapital = wRegion.getText().toString();
                 showResults.setText("");
-                //hiding the soft-keyboard
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
                 //Controll the button..
                 setButtonPressed(3);
                 if(isOnLine()){
-                    if(!countryToCapital.isEmpty()){
-                        requestData(URL_CAPITAL + countryToCapital.toLowerCase());
+                    if(!resultText.isEmpty() && resultText != null){
+                        requestData(URL_CAPITAL + resultText.toLowerCase() + "?fullText=true");
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }

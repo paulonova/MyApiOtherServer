@@ -20,11 +20,7 @@ public class JSONParser {
 
         Log.e("TESTING CONTENT:","" + content);
         countryList = new ArrayList<>();
-        countryList.clear();
         Country country;
-
-
-        try {
 
             //Starting with JSONArray..
             try {
@@ -34,13 +30,9 @@ public class JSONParser {
                     JSONObject jsonObject = parentArray.getJSONObject(i);
                     country.setCountry(jsonObject.getString("name"));
                     country.setCapital(jsonObject.getString("capital"));
-
                     countryList.add(country);
-
                 }
-
                 return countryList;
-
 
             } catch (JSONException e) {
                 Log.i("TESTING 1:","Not starting with JSONArray");
@@ -49,7 +41,6 @@ public class JSONParser {
 
 
             //Starting with JSONObject..
-
             try {
                 country = new Country();
                 JSONObject parentObject = new JSONObject(content);
@@ -65,11 +56,6 @@ public class JSONParser {
                 e.printStackTrace();
             }
 
-
-        }catch (Exception e){
-            Log.e("TESTING 3:","Not working...");
-            e.printStackTrace();
-        }
 
         return null;
     }
