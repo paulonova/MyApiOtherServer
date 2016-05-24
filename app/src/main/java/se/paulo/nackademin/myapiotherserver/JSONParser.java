@@ -30,6 +30,7 @@ public class JSONParser {
                     JSONObject jsonObject = parentArray.getJSONObject(i);
                     country.setCountry(jsonObject.getString("name"));
                     country.setCapital(jsonObject.getString("capital"));
+                    country.setPopulation(jsonObject.getLong("population"));
                     countryList.add(country);
                 }
                 return countryList;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyApiOtherServer</string>
+    <string name="app_name">MyAppOtherServer</string>
     <string name="action_settings">Settings</string>
     <string name="clear">Clear</string>
     <string name="title_activity_show_results">ShowResultsActivity</string>

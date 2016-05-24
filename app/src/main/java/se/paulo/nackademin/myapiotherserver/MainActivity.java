@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String resultText;
 
     public static final String URL_REGION = "https://restcountries.eu/rest/v1/region/";
-    public static final String URL_POPULATION = "https://restcountries.eu/rest/v1/alpha/";  // OK   https://restcountries.eu/rest/v1/alpha/
+    public static final String URL_POPULATION = "https://restcountries.eu/rest/v1/name/";  // OK   https://restcountries.eu/rest/v1/alpha/
     public static final String URL_CAPITAL = "https://restcountries.eu/rest/v1/name/";
 
 
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setButtonPressed(3);
                 if(isOnLine()){
                     if(!resultText.isEmpty() && resultText != null){
-                        requestData(URL_CAPITAL + resultText.toLowerCase() + "?fullText=true");
+                        requestData(URL_CAPITAL + resultText.toLowerCase() ); // + "?fullText=true"
                     }else{
                         Toast.makeText(getApplicationContext(), "Empty field! try again..", Toast.LENGTH_LONG).show();
                     }
