@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -186,6 +187,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setButtonPressed(1);
                 showResults.setText("");
 
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    //do nothing
+                }
+
                 //Controll the button..
                 setButtonPressed(1);
                 if(isOnLine()){
@@ -205,6 +213,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setButtonPressed(2);
                 showResults.setText("");
 
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    //do nothing
+                }
+
                 //Controll the button..
                 setButtonPressed(2);
                 if(isOnLine()){
@@ -222,6 +237,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnFindCapital:
                 setButtonPressed(3);
                 showResults.setText("");
+
+                // Close the keyboard efter button click..
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    //do nothing
+                }
 
                 //Controll the button..
                 setButtonPressed(3);
